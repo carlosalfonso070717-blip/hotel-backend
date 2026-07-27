@@ -1,7 +1,13 @@
 package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.persistence.repository;
 
-import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.persistence.entity.Hotel;
-import org.springframework.data.repository.CrudRepository;
+import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HotelDomain;
 
-public interface HotelRepository extends CrudRepository<Hotel, Integer> {
+import java.util.List;
+import java.util.Optional;
+
+public interface HotelRepository {
+    List<HotelDomain> getAll();
+    Optional<HotelDomain> getHotel(Integer idHotel);
+    HotelDomain save(HotelDomain hotel);
+    void delete(Integer idHotel);
 }
