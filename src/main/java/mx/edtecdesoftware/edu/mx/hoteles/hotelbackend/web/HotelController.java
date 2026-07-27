@@ -1,6 +1,9 @@
-package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web;
+package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HotelDomain;
@@ -9,15 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/hoteles")
-@Tag(name = "Hotel", description = "Central entity that controls the others.")
+@Tag(name = "Hotel", description = "Manage hotels in the system.")
 public class HotelController {
 
     private final HotelService hotelService;
@@ -28,12 +29,25 @@ public class HotelController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Get all hotels",
+            description = "Return a list of all registered hotels."
+    )
+    @ApiResponse(responseCode = "200", description = "Successful retrieval")
     public ResponseEntity<List<HotelDomain>> getAll() {
         return new ResponseEntity<>(hotelService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HotelDomain> getById(@PathVariable Integer id) {
+    @Operation(
+            summary = "Get hotel by ID",
+            description = "Return a hotel by its ID if it exists."
+    )
+    @ApiResponse(responseCode = "200", description = "Hotel found")
+    @ApiResponse(responseCode = "404", description = "Hotel not found")
+    public ResponseEntity<HotelDomain> getById(
+            @Parameter(description = "ID of the hotel", example = "1", required = true)
+            @PathVariable Integer id) {
         Optional<HotelDomain> encontrado = hotelService.getById(id);
         if (encontrado.isPresent()) {
             return new ResponseEntity<>(encontrado.get(), HttpStatus.OK);
@@ -51,11 +65,11 @@ public class HotelController {
                             examples = @ExampleObject(
                                     name = "Example hotel",
                                     value = """
-                                        {
-                                          "nombre": "Hotel Central",
-                                          "direccion": "Av. Reforma 100"
-                                        }
-                                        """
+                                            {
+                                              "nombre": "Hotel Central",
+                                              "direccion": "Av. Reforma 100"
+                                            }
+                                            """
                             )
                     )
             )
@@ -66,7 +80,15 @@ public class HotelController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    @Operation(
+            summary = "Delete a hotel by ID",
+            description = "Delete a hotel if it exists."
+    )
+    @ApiResponse(responseCode = "204", description = "Hotel deleted successfully")
+    @ApiResponse(responseCode = "404", description = "Hotel not found")
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "ID of the hotel to delete")
+            @PathVariable Integer id) {
         if (hotelService.delete(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
