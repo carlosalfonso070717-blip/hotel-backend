@@ -1,5 +1,7 @@
 package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDate;
 
 public class ReservaDomain {
@@ -22,6 +24,7 @@ public class ReservaDomain {
         this.idHuesped = idHuesped;
     }
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     public Integer getIdReserva() {
         return idReserva;
     }

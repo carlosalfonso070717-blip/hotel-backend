@@ -1,5 +1,7 @@
 package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class HuespedDomain {
 
     private Integer idHuesped;
@@ -17,6 +19,7 @@ public class HuespedDomain {
         this.correo = correo;
     }
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     public Integer getIdHuesped() {
         return idHuesped;
     }

@@ -1,5 +1,7 @@
 package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class HotelDomain {
 
     private Integer idHotel;
@@ -15,6 +17,7 @@ public class HotelDomain {
         this.direccion = direccion;
     }
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     public Integer getIdHotel() {
         return idHotel;
     }
