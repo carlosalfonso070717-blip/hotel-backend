@@ -2,6 +2,8 @@ package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.ReservaDomain;
@@ -17,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reservas")
-@Tag(name = "Reserva", description = "Manage bookings in the system.")
+@Tag(name = "Reservation", description = "Manage bookings in the system.")
 public class ReservaController {
 
     private final ReservaService reservaService;
@@ -77,7 +79,26 @@ public class ReservaController {
     }
 
     @PostMapping
-    @Operation(summary = "Save a new booking", description = "Register a new booking and return the created booking.")
+    @Operation(
+            summary = "Save a new booking",
+            description = "Register a new booking and return the created booking.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    content = @Content(
+                            examples = @ExampleObject(
+                                    name = "Example booking",
+                                    value = """
+                                        {
+                                          "fechaCheckIn": "2026-08-01",
+                                          "fechaCheckOut": "2026-08-05",
+                                          "idHabitacion": 1,
+                                          "idHuesped": 1
+                                        }
+                                        """
+                            )
+                    )
+            )
+    )
     @ApiResponse(responseCode = "201", description = "Booking created successfully")
     public ResponseEntity<ReservaDomain> save(@RequestBody ReservaDomain reservaDomain) {
         return new ResponseEntity<>(reservaService.save(reservaDomain), HttpStatus.CREATED);

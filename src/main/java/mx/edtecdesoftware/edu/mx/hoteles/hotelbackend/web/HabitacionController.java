@@ -2,6 +2,8 @@ package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HabitacionDomain;
@@ -17,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/habitaciones")
-@Tag(name = "Habitacion", description = "Manage rooms in the system.")
+@Tag(name = "Room", description = "Manage rooms in the system.")
 public class HabitacionController {
 
     private final HabitacionService habitacionService;
@@ -63,7 +65,25 @@ public class HabitacionController {
     }
 
     @PostMapping
-    @Operation(summary = "Save a new room", description = "Register a new room and return the created room.")
+    @Operation(
+            summary = "Save a new room",
+            description = "Register a new room and return the created room.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    content = @Content(
+                            examples = @ExampleObject(
+                                    name = "Example room",
+                                    value = """
+                                        {
+                                          "numeroHabitacion": "101",
+                                          "tipoHabitacion": "Individual",
+                                          "idHotel": 1
+                                        }
+                                        """
+                            )
+                    )
+            )
+    )
     @ApiResponse(responseCode = "201", description = "Room created successfully")
     public ResponseEntity<HabitacionDomain> save(@RequestBody HabitacionDomain habitacionDomain) {
         return new ResponseEntity<>(habitacionService.save(habitacionDomain), HttpStatus.CREATED);
