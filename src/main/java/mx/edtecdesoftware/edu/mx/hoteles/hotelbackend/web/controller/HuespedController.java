@@ -1,10 +1,11 @@
-package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web;
+package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HuespedDomain;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/huespedes")
 @Tag(name = "Guest", description = "Manage guests in the system.")
+@SecurityRequirement(name = "bearerAuth")
 public class HuespedController {
 
     private final HuespedService huespedService;

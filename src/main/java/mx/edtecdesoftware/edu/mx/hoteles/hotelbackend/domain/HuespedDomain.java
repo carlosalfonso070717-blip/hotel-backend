@@ -1,5 +1,6 @@
 package mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class HuespedDomain {
@@ -8,15 +9,17 @@ public class HuespedDomain {
     private String nombre;
     private String apellidos;
     private String correo;
+    private String contrasena;
 
     public HuespedDomain() {
     }
 
-    public HuespedDomain(Integer idHuesped, String nombre, String apellidos, String correo) {
+    public HuespedDomain(Integer idHuesped, String nombre, String apellidos, String correo, String contrasena) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
+        this.contrasena = contrasena;
     }
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
@@ -50,5 +53,15 @@ public class HuespedDomain {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Schema(accessMode = Schema.AccessMode.WRITE_ONLY)
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

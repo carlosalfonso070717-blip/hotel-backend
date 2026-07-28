@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HotelDomain;
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.service.HotelService;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/hoteles")
 @Tag(name = "Hotel", description = "Manage hotels in the system.")
+@SecurityRequirement(name = "bearerAuth")
 public class HotelController {
 
     private final HotelService hotelService;

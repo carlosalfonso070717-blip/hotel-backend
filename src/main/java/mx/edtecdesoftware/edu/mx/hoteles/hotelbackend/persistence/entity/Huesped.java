@@ -20,6 +20,9 @@ public class Huesped {
     @Column(name = "correo")
     private String correo;
 
+    @Column(name = "contrasena")
+    private String contrasena;
+
     public Integer getIdHuesped() {
         return idHuesped;
     }
@@ -50,5 +53,13 @@ public class Huesped {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }
