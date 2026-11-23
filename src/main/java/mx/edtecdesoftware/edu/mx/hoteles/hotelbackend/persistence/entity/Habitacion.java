@@ -20,6 +20,10 @@ public class Habitacion {
     @Column(name = "id_hotel")
     private Integer idHotel; // Columna cruda para que no hayan errore a futuro
 
+    // URL pública de la imagen en Supabase Storage (bucket "productos")
+    @Column(name = "image_url")
+    private String imageUrl;
+
     // Relación ManyToOne hacia hotel
     @ManyToOne
     @JoinColumn(name = "id_hotel", insertable = false, updatable = false)
@@ -63,5 +67,13 @@ public class Habitacion {
 
     public void setIdHotel(Integer idHotel) {
         this.idHotel = idHotel;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

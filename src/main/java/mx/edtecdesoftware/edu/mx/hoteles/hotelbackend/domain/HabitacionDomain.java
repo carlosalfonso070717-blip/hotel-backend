@@ -8,6 +8,7 @@ public class HabitacionDomain {
     private String numeroHabitacion;
     private String tipoHabitacion;
     private Integer idHotel;
+    private String imageUrl;
 
     public HabitacionDomain() {
     }
@@ -50,5 +51,13 @@ public class HabitacionDomain {
 
     public void setIdHotel(Integer idHotel) {
         this.idHotel = idHotel;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

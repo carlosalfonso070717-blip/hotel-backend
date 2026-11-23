@@ -9,8 +9,10 @@ import org.mapstruct.Mapping;
 public interface HabitacionMapper {
 
     @Mapping(target = "idHotel", source = "idHotel")
+    @Mapping(target = "imageUrl", source = "imageUrl")
     HabitacionDomain toDomain(Habitacion entity);
 
     @Mapping(target = "hotel", ignore = true)
+    @Mapping(target = "imageUrl", source = "imageUrl")
     Habitacion toEntity(HabitacionDomain domain);
 }
