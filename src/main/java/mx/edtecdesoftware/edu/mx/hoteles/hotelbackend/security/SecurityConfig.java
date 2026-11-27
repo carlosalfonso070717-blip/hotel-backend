@@ -39,8 +39,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
-                        // Catálogo público de solo lectura para la app Flutter (el login lo hace Firebase)
-                        .requestMatchers(HttpMethod.GET, "/api/habitaciones/**", "/api/hoteles/**").permitAll()
+                        // CRUD de habitaciones abierto para la app Flutter (el acceso a la app lo protege Firebase)
+                        .requestMatchers("/api/habitaciones/**").permitAll()
+                        // Hoteles: solo lectura pública
+                        .requestMatchers(HttpMethod.GET, "/api/hoteles/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

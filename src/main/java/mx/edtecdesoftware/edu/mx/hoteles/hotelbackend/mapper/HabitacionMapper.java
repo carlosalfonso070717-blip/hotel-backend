@@ -10,9 +10,13 @@ public interface HabitacionMapper {
 
     @Mapping(target = "idHotel", source = "idHotel")
     @Mapping(target = "imageUrl", source = "imageUrl")
+    @Mapping(target = "precio", source = "precio")
+    @Mapping(target = "stock", source = "stock")
     HabitacionDomain toDomain(Habitacion entity);
 
     @Mapping(target = "hotel", ignore = true)
     @Mapping(target = "imageUrl", source = "imageUrl")
+    @Mapping(target = "precio", source = "precio")
+    @Mapping(target = "stock", source = "stock")
     Habitacion toEntity(HabitacionDomain domain);
 }

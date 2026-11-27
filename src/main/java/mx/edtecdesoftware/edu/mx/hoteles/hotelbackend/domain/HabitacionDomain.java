@@ -9,6 +9,8 @@ public class HabitacionDomain {
     private String tipoHabitacion;
     private Integer idHotel;
     private String imageUrl;
+    private Double precio;
+    private Integer stock;
 
     public HabitacionDomain() {
     }
@@ -59,5 +61,21 @@ public class HabitacionDomain {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

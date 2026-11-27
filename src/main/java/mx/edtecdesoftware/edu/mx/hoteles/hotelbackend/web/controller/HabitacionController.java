@@ -103,4 +103,17 @@ public class HabitacionController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a room", description = "Update an existing room and return it.")
+    @ApiResponse(responseCode = "200", description = "Room updated successfully")
+    @ApiResponse(responseCode = "404", description = "Room not found")
+    public ResponseEntity<HabitacionDomain> update(
+            @Parameter(description = "ID of the room to update", example = "1", required = true)
+            @PathVariable Integer id,
+            @RequestBody HabitacionDomain habitacionDomain) {
+        return habitacionService.update(id, habitacionDomain)
+                .map(actualizada -> new ResponseEntity<>(actualizada, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

@@ -34,6 +34,15 @@ public class HabitacionService {
         return habitacionRepository.save(habitacion);
     }
 
+    // PUT: actualiza solo si la habitación existe
+    public Optional<HabitacionDomain> update(Integer idHabitacion, HabitacionDomain habitacion) {
+        if (getById(idHabitacion).isEmpty()) {
+            return Optional.empty();
+        }
+        habitacion.setIdHabitacion(idHabitacion);
+        return Optional.of(habitacionRepository.save(habitacion));
+    }
+
     public boolean delete(Integer idHabitacion) {
         if (getById(idHabitacion).isPresent()) {
             habitacionRepository.delete(idHabitacion);
