@@ -11,6 +11,7 @@ import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.domain.HabitacionDomain;
 
 import mx.edtecdesoftware.edu.mx.hoteles.hotelbackend.service.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -95,13 +96,19 @@ public class HabitacionController {
     @Operation(summary = "Delete a room by ID", description = "Delete a room if it exists.")
     @ApiResponse(responseCode = "204", description = "Room deleted successfully")
     @ApiResponse(responseCode = "404", description = "Room not found")
+    @ApiResponse(responseCode = "409", description = "Room has reservations and cannot be deleted")
     public ResponseEntity<Void> delete(
             @Parameter(description = "ID of the room to delete")
             @PathVariable Integer id) {
-        if (habitacionService.delete(id)) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            if (habitacionService.delete(id)) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (DataIntegrityViolationException e) {
+            // La habitación tiene reservas (llave foránea): no se puede borrar
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")

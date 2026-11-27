@@ -39,6 +39,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
+                        // Ruta interna de errores de Spring: así se ve el error real y no un 403
+                        .requestMatchers("/error").permitAll()
                         // CRUD de habitaciones abierto para la app Flutter (el acceso a la app lo protege Firebase)
                         .requestMatchers("/api/habitaciones/**").permitAll()
                         // Hoteles: solo lectura pública
